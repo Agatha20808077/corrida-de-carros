@@ -23,6 +23,22 @@ class Form {
     display(){
         this.setElementsPosition();
         this.setElementsStyle();
+        this.playButtonPressed();
+    }
+
+    //detecção de aperto do botão play
+    playButtonPressed(){
+        this.playButton.mousePressed(()=>{
+            this.input.hide();
+            this.playButton.hide();
+            //mensagem a ser exibida
+            var mensagem;
+            //exibir a mensagem
+            playerCount += 1;
+            player.index = playerCount;
+            player.addPlayer(); //adiciona o player no BD
+            player.updateCount(playerCount);
+        })
     }
 
 }//class
