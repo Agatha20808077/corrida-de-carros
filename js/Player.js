@@ -35,4 +35,12 @@ class Player {
             positionY: this.positionY,
         });
     }
+
+    //trazer as informações dos players do BD
+    static getPlayersInfo(){
+        var playerInfoRef = database.ref("players");
+        playerInfoRef.on("value", data =>{
+            allPlayers = data.val();
+        });
+    }
 }//classe

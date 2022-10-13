@@ -26,6 +26,12 @@ class Form {
         this.playButtonPressed();
     }
 
+    hide(){
+        this.playButton.hide();
+        this.input.hide();
+        this.greeting.hide();
+    }
+
     //detecção de aperto do botão play
     playButtonPressed(){
         this.playButton.mousePressed(()=>{
