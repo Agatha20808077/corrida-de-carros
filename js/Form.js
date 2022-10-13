@@ -32,8 +32,11 @@ class Form {
             this.input.hide();
             this.playButton.hide();
             //mensagem a ser exibida
-            var mensagem;
+            var mensagem = `Seja Bem Vindo ${this.input.value()} </br> espere o outro jogador entrar`; 
             //exibir a mensagem
+            this.greeting.html(mensagem);
+            //pegar o nome
+            player.name = this.input.value()
             playerCount += 1;
             player.index = playerCount;
             player.addPlayer(); //adiciona o player no BD

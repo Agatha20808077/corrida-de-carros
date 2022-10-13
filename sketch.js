@@ -17,6 +17,7 @@ function setup(){
 
 function draw(){
   background(bgImg);
+  if(playerCount)
 }
 
 function windowResized() {
