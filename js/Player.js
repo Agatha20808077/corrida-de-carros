@@ -43,4 +43,14 @@ class Player {
             allPlayers = data.val();
         });
     }
+
+    //atualizar o BD
+    update(){
+    var playerIndex = "players/player" + this.index;
+    database.ref(playerIndex).update({
+        positionX: this.positionX,
+        positionY: this.positionY,
+    });
+    }
+
 }//classe
