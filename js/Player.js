@@ -4,7 +4,7 @@ class Player {
         this.index = null;
         this.positionX = 0;
         this.positionY = 0;
-
+        this.fuel = 185;
     }
     //pega a contagem dos players no banco de dados
     getCount(){
@@ -33,6 +33,7 @@ class Player {
             name: this.name,
             positionX: this.positionX,
             positionY: this.positionY,
+            fuel: this.fuel;
         });
     }
 
@@ -50,6 +51,7 @@ class Player {
     database.ref(playerIndex).update({
         positionX: this.positionX,
         positionY: this.positionY,
+        fuel: this.fuel,
     });
     }
 

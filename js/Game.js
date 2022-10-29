@@ -50,6 +50,32 @@ class Game {
 
         carros = [carro1,carro2];
         // i         0     1
+
+        gCoin = new Group();
+        gFuel = new Group();
+        gObstacles = new Group();
+
+        //matriz de posições dos obstáculos
+        var obstaclesPositions = [
+            { x: width / 2 + 250, y: height - 800, image: obstacle2Image },
+            { x: width / 2 - 150, y: height - 1300, image: obstacle1Image },
+            { x: width / 2 + 250, y: height - 1800, image: obstacle1Image },
+            { x: width / 2 - 180, y: height - 2300, image: obstacle2Image },
+            { x: width / 2, y: height - 2800, image: obstacle2Image },
+            { x: width / 2 - 180, y: height - 3300, image: obstacle1Image },
+            { x: width / 2 + 180, y: height - 3300, image: obstacle2Image },
+            { x: width / 2 + 250, y: height - 3800, image: obstacle2Image },
+            { x: width / 2 - 150, y: height - 4300, image: obstacle1Image },
+            { x: width / 2 + 250, y: height - 4800, image: obstacle2Image },
+            { x: width / 2, y: height - 5300, image: obstacle1Image },
+            { x: width / 2 - 180, y: height - 5500, image: obstacle2Image }
+          ];
+
+        //criar os sprites de moeda e combustível
+        this.addSprites(gCoin,60,coinImg,0.09);
+        this.addSprites(gFuel,30,fuelImg,0.02);
+        //obstáculos
+          
     }
 
     //lidando com os elementos na tela
@@ -99,8 +125,6 @@ class Game {
                 }
 
             }
-
-
             this.playerControl();
             drawSprites();
         }
@@ -119,6 +143,27 @@ class Game {
         if(keyIsDown(RIGHT_ARROW)){
             player.positionX += 5;
             player.update();
+        }
+    }
+
+    //adicionar os sprites de moedas, combustíveis e obstáculos
+    addSprites(spriteGroup, numberOfSprites, spriteImage, scale, positions = []){
+        for(var i=0; i<numberOfSprites; i++){
+            var x,y;
+
+            if(positions.length > 0){
+                x = positions[i].x;
+                y = positions[i].y;
+                spriteImage = positions[i].image;
+            }else{
+                x = random(width/2 - 150, width/2 + 150);
+                y = random(-height*4.5, height-400);
+            }
+            var sprite = createSprite(x,y);
+            sprite.addImage("sprite", spriteImage);
+
+            sprite.scale = scale;
+            spriteGroup.add(sprite);
         }
     }
 }//class
