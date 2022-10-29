@@ -33,7 +33,7 @@ class Player {
             name: this.name,
             positionX: this.positionX,
             positionY: this.positionY,
-            fuel: this.fuel;
+            fuel: this.fuel,
         });
     }
 

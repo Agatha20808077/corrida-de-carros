@@ -72,9 +72,10 @@ class Game {
           ];
 
         //criar os sprites de moeda e combustível
-        this.addSprites(gCoin,60,coinImg,0.09);
-        this.addSprites(gFuel,30,fuelImg,0.02);
+        this.addSprites(gCoin,20,coinImg,0.09);
+        this.addSprites(gFuel,8,fuelImg,0.02);
         //obstáculos
+        this.addSprites(gObstacles,obstaclesPositions.length,obstacle1Image,0.04,obstaclesPositions);
           
     }
 
