@@ -87,13 +87,15 @@ class Game {
                 var y = height - allPlayers[plr].positionY;
 
                 carros[index -1].position.x = x;
+                // deu erro na linha 89 .20/10
                 carros[index -1].position.y = y;
 
                 if(index === player.index){
                     //marcar o carro
-
+                    fill("red"); 
+                    ellipse(x, y, 60, 50);
                     //camêra para seguir o carro
-                    
+                    camera.position.y = carros[index -1].position.y;
                 }
 
             }
