@@ -5,6 +5,8 @@ class Player {
         this.positionX = 0;
         this.positionY = 0;
         this.fuel = 185;
+        this.life = 185;
+        this.rank = 0;
     }
     //pega a contagem dos players no banco de dados
     getCount(){
@@ -34,6 +36,8 @@ class Player {
             positionX: this.positionX,
             positionY: this.positionY,
             fuel: this.fuel,
+            life: this.life,
+            rank: this.rank,
         });
     }
 
@@ -52,7 +56,23 @@ class Player {
         positionX: this.positionX,
         positionY: this.positionY,
         fuel: this.fuel,
+        life: this.life,
+        rank: this.rank,
     });
+    }
+
+    //pega o valor do BD
+    getCarsAtEnd(){
+        database.ref('carsAtEnd').on("value", (data)=>{
+            this.rank = data.val();
+        })
+    }
+
+    //atualiza o valor no banco de dados
+    static updateCarsAtEnd(rank){
+        database.ref("/").update({
+            carsAtEnd: rank
+        })
     }
 
 }//classe

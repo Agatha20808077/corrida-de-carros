@@ -24,6 +24,7 @@ class Game {
         this.resetButton.mousePressed(()=>{
             //acessar o BD
             database.ref("/").set({
+                carsAtEnd:0,
                 gameState: 0,
                 playerCount:0,
                 players: {}
@@ -98,9 +99,12 @@ class Game {
         this.handleElements();
         this.reset();
         Player.getPlayersInfo();
+        player.getCarsAtEnd();
 
         if(allPlayers !== undefined){
             image(fundoImg,0,-height*5, width,height*6);
+
+            this.showLife();
 
             //índice da matriz
             var index = 0;
@@ -117,16 +121,30 @@ class Game {
                 // deu erro na linha 89 .20/10
                 carros[index -1].position.y = y;
 
+                //cada carro individualmente
                 if(index === player.index){
                     //marcar o carro
                     fill("red"); 
                     ellipse(x, y, 60, 50);
                     //camêra para seguir o carro
                     camera.position.y = carros[index -1].position.y;
+                    //coletar
+                    this.handleCoins(index);
+                    this.handleFuel(index);
+                    this.handleObstacles(index)
                 }
 
             }
             this.playerControl();
+            //verifica se passou pela linha de chegada
+            const finishLine = height*6 - 100;
+            if(player.positionY > finishLine){
+                gameState = 2;
+                player.rank += 1;
+                Player.updateCarsAtEnd(player.rank);
+                player.update();
+                this.showRank();
+            }
             drawSprites();
         }
     }
@@ -166,5 +184,52 @@ class Game {
             sprite.scale = scale;
             spriteGroup.add(sprite);
         }
+    }
+
+    handleFuel(index){
+        carros[index-1].overlap(gFuel, function(collector,collected){
+            player.fuel += 40;
+            player.update();
+            collected.remove(); //remove o combustível
+        })
+    }
+
+    handleCoins(index){
+        carros[index-1].overlap(gCoin, function(collector,collected){
+            player.score += 30;
+            player.update();
+            collected.remove(); //remove o combustível
+        });
+    }
+
+    handleObstacles(index){
+        if(carros[index-1].collide(gObstacles)){
+            if(player.life >0){
+                player.life -= 185/4;
+            }
+            player.update();
+        }
+    }
+    //sweet alert
+    showRank(){
+        swal({ 
+            title: `Incrível!${"\n"}Rank${"\n"}${player.rank}`,
+            text: "Você alcançou a linha de chegada com sucesso!",
+            imageUrl:
+            "https://raw.githubusercontent.com/vishalgaddam873/p5-multiplayer-car-race-game/master/assets/cup.png",
+            imageSize: "100x100",
+            confirmButtonText: "Ok"
+        });
+    }
+
+    //barra de vida
+    showLife(){
+        push();
+        image(lifeImg, width/2 - 130, height - player.positionY - 200, 20,20);
+        fill("white");
+        rect(width/2 - 100,height - player.positionY - 200, 185,20);
+        fill("red");
+        rect(width/2 - 100,height - player.positionY - 200, player.life,20);
+        pop();
     }
 }//class

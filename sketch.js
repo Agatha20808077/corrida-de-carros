@@ -6,7 +6,7 @@ var allPlayers, fundoImg;
 var carro1, carro2, carro1Img, carro2Img;
 var carros = [];
 var gCoin, gFuel, gObstacles;
-var coinImg, fuelImg, obstacle1Image, obstacle2Image;
+var coinImg, fuelImg, obstacle1Image, obstacle2Image, lifeImg;
 
 function preload(){
     bgImg = loadImage("./imagens/planodefundo.png");
@@ -17,6 +17,7 @@ function preload(){
     fuelImg = loadImage("./imagens/fuel.png");
     obstacle1Image = loadImage("./imagens/obstacle1.png");
     obstacle2Image = loadImage("./imagens/obstacle2.png");
+    lifeImg = loadImage("./imagens/life.png");
 }
 
 function setup(){
