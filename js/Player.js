@@ -7,6 +7,7 @@ class Player {
         this.fuel = 185;
         this.life = 185;
         this.rank = 0;
+        this.score = 0;
     }
     //pega a contagem dos players no banco de dados
     getCount(){
@@ -38,6 +39,7 @@ class Player {
             fuel: this.fuel,
             life: this.life,
             rank: this.rank,
+            score: this.score,
         });
     }
 
@@ -58,6 +60,7 @@ class Player {
         fuel: this.fuel,
         life: this.life,
         rank: this.rank,
+        score: this.score,
     });
     }
 

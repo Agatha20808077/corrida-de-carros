@@ -2,6 +2,12 @@ class Game {
     constructor(){
         this.resetTitle = createElement("h2");
         this.resetButton = createButton("");
+
+        this.leaderboardTitle = createElement("h2");
+        this.leader1 = createElement("h2");
+        this.leader2 = createElement("h2");
+
+        this.leftKeyActive = false;
     }
     //pega o estado do jogo no banco de dados
     getState(){
@@ -92,6 +98,17 @@ class Game {
 
         this.resetButton.position(width/2 + 200, 100);
         this.resetButton.class("resetButton");
+
+        this.leaderboardTitle.position(width/3 -60, 40);
+        this.leaderboardTitle.class("resetText");
+        this.leaderboardTitle.html("Placar");
+
+        this.leader1.position(width/3 -50, 80);
+        this.leader1.class("resetText");
+
+        this.leader2.position(width/3 -50, 130);
+        this.leader2.class("resetText");
+
     }
 
     //inicio do jogo
@@ -105,6 +122,7 @@ class Game {
             image(fundoImg,0,-height*5, width,height*6);
 
             this.showLife();
+            this.mostrarPlacar();
 
             //índice da matriz
             var index = 0;
@@ -131,7 +149,8 @@ class Game {
                     //coletar
                     this.handleCoins(index);
                     this.handleFuel(index);
-                    this.handleObstacles(index)
+                    this.handleObstacles(index);
+                    this.handleCars(index);
                 }
 
             }
@@ -156,10 +175,12 @@ class Game {
             player.update();
         }
         if(keyIsDown(LEFT_ARROW)){
+            this.leftKeyActive = true;
             player.positionX -= 5;
             player.update();
         }
         if(keyIsDown(RIGHT_ARROW)){
+            this.leftKeyActive = false;
             player.positionX += 5;
             player.update();
         }
@@ -186,6 +207,44 @@ class Game {
         }
     }
 
+    mostrarPlacar(){
+        var leader1, leader2;
+        var players = Object.values(allPlayers);
+        if((players[0].rank ===0 && players[0].rank ===0) || players[0].rank === 1){
+            leader1 = 
+                players[0].rank + 
+                "&emsp;" + 
+                players[0].name + 
+                "&emsp;" + 
+                players[0].score;
+
+            leader2 = 
+                players[1].rank + 
+                "&emsp;" + 
+                players[1].name + 
+                "&emsp;" + 
+                players[1].score;
+        }
+        if(players[1].rank === 1){
+            leader1 = 
+                players[1].rank + 
+                "&emsp;" + 
+                players[1].name + 
+                "&emsp;" + 
+                players[1].score;
+
+            leader2 = 
+                players[0].rank + 
+                "&emsp;" + 
+                players[0].name + 
+                "&emsp;" + 
+                players[0].score;
+        }
+        //mostrar
+        this.leader1.html(leader1);
+        this.leader2.html(leader2);
+    }
+
     handleFuel(index){
         carros[index-1].overlap(gFuel, function(collector,collected){
             player.fuel += 40;
@@ -204,12 +263,48 @@ class Game {
 
     handleObstacles(index){
         if(carros[index-1].collide(gObstacles)){
+            if(this.leftKeyActive){
+                player.positionX += 100;
+            }else{
+                player.positionX -= 100;
+            }
             if(player.life >0){
                 player.life -= 185/4;
             }
             player.update();
         }
     }
+
+    handleCars(index){
+        if(index === 1){
+            if(carros[index-1].collide(carros[1])){
+                if(this.leftKeyActive){
+                    player.positionX += 100;
+                }else{
+                    player.positionX -= 100;
+                }
+                if(player.life >0){
+                    player.life -= 185/4;
+                }
+                player.update();
+            }
+        }
+        if(index === 2){
+            if(carros[index-1].collide(carros[0])){
+                if(this.leftKeyActive){
+                    player.positionX += 100;
+                }else{
+                    player.positionX -= 100;
+                }
+                if(player.life >0){
+                    player.life -= 185/4;
+                }
+                player.update();
+            }
+        }
+    }
+
+
     //sweet alert
     showRank(){
         swal({ 
