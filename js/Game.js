@@ -50,10 +50,10 @@ class Game {
         playerCount = player.getCount();
 
         //criar os sprites
-        carro1 = createSprite(width/2 - 100, height-100);
+        carro1 = createSprite(width/2 - 50, height-100);
         carro1.addImage("car1", carro1Img);
         carro1.scale = 0.07;
-        carro2 = createSprite(width/2 + 100, height-100);
+        carro2 = createSprite(width/2 + 50, height-100);
         carro2.addImage("car2", carro2Img);
         carro2.scale = 0.07;
         carro1.addImage("batida", blastImg);
