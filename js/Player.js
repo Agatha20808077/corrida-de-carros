@@ -28,9 +28,9 @@ class Player {
     addPlayer(){
         var playerIndex = "players/player" + this.index;
         if(this.index === 1){
-            this.positionX = width/2 - 100;
+            this.positionX = width/2 - 50;
         }else{
-            this.positionX = width/2 + 100;
+            this.positionX = width/2 + 50;
         }
         database.ref(playerIndex).set({
             name: this.name,
